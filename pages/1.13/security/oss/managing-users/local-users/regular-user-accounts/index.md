@@ -32,17 +32,25 @@ export TOKEN=$(dcos config show core.dcos_acs_token)
 To add a regular user account replace `<username>` and `<password>` with the corresponding values and execute the following command:
 
 ```bash
-curl -i -X PUT https://<host-ip>/acs/api/v1/users/<username> -d '{"password": "<password>"}' -H 'Content-Type: application/json' -H 'Authorization: token=$TOKEN'
+curl -ki -X PUT https://<host-ip>/acs/api/v1/users/<username> -d '{"password": "<password>"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
-**NOTE**: Requests for adding and updating a regular user accounts are identical.
+**NOTE**: Passwords must be at least 5 characters long.
+
+## Update regular user accounts via the IAM API
+
+To add a regular user account replace `<username>` and `<new-password>` with the corresponding values and execute the following command:
+
+```bash
+curl -ki -X PATCH https://<host-ip>/acs/api/v1/users/<username> -d '{"password": "<new-password>"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+```
 
 ## Delete regular user accounts via the IAM API
 
 To delete a regular user account replace `<username>` with the corresponding value and execute the following command:
 
 ```bash
-curl -i -X DELETE https://<host-ip>/acs/api/v1/users/<username> -H 'Content-Type: application/json' -H 'Authorization: token=$TOKEN'
+curl -ki -X DELETE https://<host-ip>/acs/api/v1/users/<username> -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
 # Log in regular users via the DC/OS CLI 
@@ -63,7 +71,7 @@ dcos auth login --provider=dcos-users --username=<username> --password=<password
 
 To switch users, you must log out of the current user and then back in as the new user.
 
-### From the DC/OS CLI
+## From the DC/OS CLI
 
 To log out of the DC/OS CLI, enter the command:
 

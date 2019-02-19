@@ -42,10 +42,10 @@ All IAM endpoints require an authentication token---except the `auth` endpoints.
 
 To get an authentication token, pass the credentials of a local user or service accout in the body of a `POST` request to `/auth/login`.
 
-To log in local user accounts supply user ID and password in the request.
+To log in regular user accounts supply user ID and password in the request.
 
 ```bash
-curl -i -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<username>", "password": "<password>"}' -H 'Content-Type: application/json'
+curl -ki -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<username>", "password": "<password>"}' -H 'Content-Type: application/json'
 ```
 
 To log in service accounts supply user ID and a service login token in the request. The service login token is a RFC 7519 JWT of type RS256. It must be constructed by combining the service account user ID and an expiry (`exp`) claim in the JWT format. The JWT requirements for a service login token are:
@@ -69,7 +69,7 @@ To log in service accounts supply user ID and a service login token in the reque
 The provided information must then be encrypted using the service account's private key. The final encoding step results in a token in `base64` encoded JWT format which can be passed to the IAM.
 
 ```bash
-curl -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<service-account-id>", "token": "<service-login-token>"}' -H 'Content-Type: application/json'
+curl -k -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<service-account-id>", "token": "<service-login-token>"}' -H 'Content-Type: application/json'
 ```
 
 Both requests return a DC/OS authentication token as shown below.
