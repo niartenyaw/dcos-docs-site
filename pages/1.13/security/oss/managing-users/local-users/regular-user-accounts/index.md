@@ -2,7 +2,7 @@
 layout: layout.pug
 navigationTitle: Regular user accounts
 title: Regular user accounts
-excerpt: Managing regular user accounts
+excerpt: Managing regular DC/OS user accounts
 menuWeight: 20
 ---
 

@@ -2,13 +2,13 @@
 layout: layout.pug
 navigationTitle: Service accounts
 title: Service accounts
-excerpt: Managing regular user accounts
+excerpt: Managing DC/OS service accounts
 menuWeight: 20
 ---
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-By default no service accounts exist in DC/OS. The only way to add service accounts is via the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/).
+By default no service account exists in DC/OS. The only way to add service accounts is via the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/).
 
 # Manage service accounts via the IAM API
 
@@ -35,42 +35,48 @@ A service account consists of a user ID and a RSA keypair.
 1. To add a service account generate a RSA private key first using OpenSSL.
 
 ```bash
-openssl genrsa -des3 -out private-key.pem 2048
+openssl genpkey -algorithm RSA -out private-key.pem -pkeyopt rsa_keygen_bits:2048
 ```
 
 2. Extract the corresponding public key from the private key.
+
 ```bash
-openssl rsa -in private-key.pem -outform PEM -pubout -out public-key.pem
+openssl rsa -pubout -in private-key.pem -out public-key.pem
 ```
 
-replace `<username>` and `<password>` with the corresponding values and execute the following command:
+3. Then replace `<service-account-id>` with the corresponding value in the following command and execute it:
 
 ```bash
-curl -i -X PUT https://<host-ip>/acs/api/v1/users/<username> -d '{"public_key": "<public-key>", "provider_type": "internal"}' -H 'Content-Type: application/json' -H 'Authorization: token=$TOKEN'
+curl -ki -X PUT https://<host-ip>/acs/api/v1/users/<service-account-id> -d '{"public_key": "'"$(sed ':a;N;$!ba;s/\n/\\n/g' public-key.pem)"'", "provider_type": "internal"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
 ## Update regular user accounts via the IAM API
+
+To update a service account supply the new public key in the `new-public-key.pem` file. Then replace `<service-account-id>` in the following command and execute it:
+
+```bash
+curl -ki -X PATCH https://<host-ip>/acs/api/v1/users/<service-account-id> -d '{"public_key": "'"$(sed ':a;N;$!ba;s/\n/\\n/g' new-public-key.pem)"'", "provider_type": "internal"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+```
 
 ## Delete regular user accounts via the IAM API
 
 To delete a regular user account replace `<username>` with the corresponding value and execute the following command:
 
 ```bash
-curl -i -X DELETE https://<host-ip>/acs/api/v1/users/<username> -H 'Content-Type: application/json' -H 'Authorization: token=$TOKEN'
+curl -ki -X DELETE https://<host-ip>/acs/api/v1/users/<service-account-id> -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
-# Log in regular users via the DC/OS CLI 
+# Log in service accounts via the DC/OS CLI 
 
 **Prerequisite:**
 - [DC/OS CLI](/1.13/cli/)
 
+Using the [DC/OS CLI](/1.13/cli/) one can log in as DC/OS service account by specifying the `dcos-services` login provider.
 
-Using the [DC/OS CLI](/1.13/cli/) one can log in as regular DC/OS user by specifying the `dcos-users` login provider.
-
-To log in to the DC/OS CLI, enter the [auth login](/1.13/cli/command-reference/dcos-auth/dcos-auth-login/) command:
+To log in to the DC/OS CLI, enter the [auth login](/1.13/cli/command-reference/dcos-auth/dcos-auth-login/) command by specifying `<service-account-id>` and `<private-key-path>` corresponding to the service account:
 
 ```bash
-dcos auth login --provider=dcos-users --username=<username> --password=<password>
+dcos auth login --provider=dcos-users --username=<service-account-id> --private-key=<private-key-path>
 ```
 
 # Switch users 
