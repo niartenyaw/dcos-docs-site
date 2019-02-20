@@ -92,8 +92,7 @@ You can now log in as another user.
 4.  To log out of the DC/OS CLI, enter the command:
 
 ```bash
-dcos config unset core.dcos_acs_token
-Removed [core.dcos_acs_token]
+dcos auth logout
 ```
 
 You can now log in as another user.

@@ -1,11 +1,49 @@
 ---
 layout: layout.pug
-navigationTitle:  HTTP API Endpoint Authentication
-menuWeight: 42
-excerpt: Authenticating with an HTTP API endpoint
-title: HTTP API Endpoint Authentication
+navigationTitle: Authentication Tokens
+title: Authentication Tokens
+excerpt: Authentication Tokens
+menuWeight: 10
+
 ---
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
+
+DC/OS use a JSON Web Tokens (JWT) named `DC/OS authentication token` for the purpose of authenticating users against the cluster.
+
+DC/OS authentication tokens can be obtained by any registered user of the cluster. The way to obtain a DC/OS authentication involves logging in to the cluster but varies slightly by user type.
+
+# Obtaining DC/OS Authentication tokens
+
+## Obtain Auth tokens as external user
+
+### Via the CLI
+
+### Via the IAM API
+
+## Obtain Auth tokens as regular user
+
+### Via the CLI
+
+### Via the IAM API
+ 
+## Obtain Auth tokens as service account
+
+### Via the CLI
+
+### Via the IAM API
+
+# Using a DC/OS Authentication token
+
+DC/OS uses JSON Web Tokens (JWT) for the purpose of authenticating HTTP requests against the cluster. DC/OS authentication tokens are sent via HTTP in the `Authorization` header. The `Authorization` header value must be in the format: `token=<token>`. Other formats like `Bearer <token>` are not supported.
+
+From the [DC/OS CLI](/1.13/cli), you can log in to your cluster which results in obtaining a DC/OS authentication token. The token will then be used for authenticating the logged in on subsequent DC/OS CLI commands. 
+
+## <a name="log-in-cli"></a>Authenticating through DC/OS CLI
+
+Authentication is only supported for DC/OS CLI version 0.4.3 and later. See [here](/1.13/cli/update/) for upgrade instructions.
+
+The DC/OS CLI stores the token in a configuration file in the `.dcos` directory under the home directory of the user running the CLI. This token can be used with the `curl` command to access DC/OS APIs, using `curl` or `wget`. For example, `curl -H 'Authorization: token=<token>' http://cluster`.
+
 
 You can make external calls to HTTP API endpoints in your DC/OS cluster. You must first obtain an authentication token and then include it in your HTTP request. Authentication tokens expire after five days. You can see the expiration time in the ["exp" (Expiration Time) Claim](https://tools.ietf.org/html/rfc7519#section-4.1.4) of the JSON Web Token (JWT). Refresh your token by re-logging in to DC/OS.
 

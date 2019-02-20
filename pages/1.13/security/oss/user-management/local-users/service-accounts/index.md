@@ -96,8 +96,7 @@ To switch users, you must log out of the current user and then back in as the ne
 To log out of the DC/OS CLI, enter the command:
 
 ```bash
-dcos config unset core.dcos_acs_token
-Removed [core.dcos_acs_token]
+dcos auth logout
 ```
 
 You can now log in as another user.
