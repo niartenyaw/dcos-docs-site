@@ -50,7 +50,15 @@ openssl rsa -pubout -in private-key.pem -out public-key.pem
 curl -ki -X PUT https://<host-ip>/acs/api/v1/users/<service-account-id> -d '{"public_key": "'"$(sed ':a;N;$!ba;s/\n/\\n/g' public-key.pem)"'", "provider_type": "internal"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
-## Update regular user accounts via the IAM API
+## List service accounts via the IAM API
+
+To list all configured service accounts execute the following command:
+
+```bash
+curl -ki -X GET https://<host-ip>/acs/api/v1/users\?type\=service -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+```
+
+## Update service accounts via the IAM API
 
 To update a service account supply the new public key in the `new-public-key.pem` file. Then replace `<service-account-id>` in the following command and execute it:
 
@@ -58,7 +66,7 @@ To update a service account supply the new public key in the `new-public-key.pem
 curl -ki -X PATCH https://<host-ip>/acs/api/v1/users/<service-account-id> -d '{"public_key": "'"$(sed ':a;N;$!ba;s/\n/\\n/g' new-public-key.pem)"'", "provider_type": "internal"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
-## Delete regular user accounts via the IAM API
+## Delete service accounts via the IAM API
 
 To delete a regular user account replace `<username>` with the corresponding value and execute the following command:
 

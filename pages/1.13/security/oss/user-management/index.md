@@ -1,9 +1,9 @@
 ---
 layout: layout.pug
-navigationTitle:  Managing users
-title: Managing users
+navigationTitle:  User Management
+title: User Management
 menuWeight: 0
-excerpt: Managing users
+excerpt: Managing DC/OS users
 ---
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
