@@ -1,8 +1,8 @@
 ---
 layout: layout.pug
-navigationTitle: Authentication Tokens
-title: Authentication Tokens
-excerpt: Authentication Tokens
+navigationTitle: Obtaining Authentication Tokens
+title: Obtaining DC/OS Authentication Tokens
+excerpt: Obtaining DC/OS Authentication Tokens
 menuWeight: 10
 
 ---
@@ -11,28 +11,6 @@ menuWeight: 10
 DC/OS use a JSON Web Tokens (JWT) named `DC/OS authentication token` for the purpose of authenticating users against the cluster.
 
 DC/OS authentication tokens can be obtained by any registered user of the cluster. The way to obtain a DC/OS authentication involves logging in to the cluster but varies slightly by user type.
-
-# Obtaining DC/OS Authentication tokens
-
-## Obtain Auth tokens as external user
-
-### Via the CLI
-
-### Via the IAM API
-
-## Obtain Auth tokens as regular user
-
-### Via the CLI
-
-### Via the IAM API
- 
-## Obtain Auth tokens as service account
-
-### Via the CLI
-
-### Via the IAM API
-
-# Using a DC/OS Authentication token
 
 DC/OS uses JSON Web Tokens (JWT) for the purpose of authenticating HTTP requests against the cluster. DC/OS authentication tokens are sent via HTTP in the `Authorization` header. The `Authorization` header value must be in the format: `token=<token>`. Other formats like `Bearer <token>` are not supported.
 

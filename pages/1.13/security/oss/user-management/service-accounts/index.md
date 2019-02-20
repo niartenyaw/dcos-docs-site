@@ -1,8 +1,8 @@
 ---
 layout: layout.pug
 navigationTitle: Service accounts
-title: Service accounts
-excerpt: Managing DC/OS service accounts
+title: Managing service accounts
+excerpt: Managing service accounts
 menuWeight: 20
 ---
 

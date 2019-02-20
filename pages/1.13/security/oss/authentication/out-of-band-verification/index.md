@@ -1,26 +1,15 @@
 ---
 layout: layout.pug
-navigationTitle:  Managing JSON Web Tokens
-title: Managing JSON Web Tokens
-menuWeight: 200
-excerpt: Managing JSON web tokens
+navigationTitle:  Out-of-band Authentication
+title: Out-of-band Authentication
+excerpt: Verify DC/OS Authentication by 3rd-party authenticators
+menuWeight: 30
 
-enterprise: true
 ---
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-# Refreshing Tokens
-Services can use a variety of means to refresh their tokens. Ideally, a service should calculate the length of time until the token expires, which is embedded within the token itself, and request a new one before it expires. However, a service can also wait until it receives a `401` to request a new token.
-
-You may need to provision a service with a service account depending on your [security mode](/1.13/security/ent/#security-modes) and the origin of the service's requests. 
-
-An API consumer should be able to handle when its current authentication token expires.
-
--  **Post-Expiration Renewal** With this method, you obtain a new auth token after an "invalid token" response is received. An invalid authentication token is responded to with a 401 HTTP status code and the service re-invokes the service account login procedure. It attempts to get a fresh authentication token (with retry and back-off). During the period where the service has no valid authentication token, the service might need to hold back operations, resulting in latency spikes.
-- **Pre-Expiration Renewal** With this method, the token is refreshed before it expires. The service can schedule asynchronous token renewal ahead of the expiration. It can fetch a new authentication token while the old one is still valid. This prevents the latency spikes caused by an expired authentication token.
-
-# Out-of-band Verification of an RS256 Authentication JWT
-DC/OS services can authenticate incoming requests on behalf of the [DC/OS Identity and Access Manager (Bouncer)](/1.13/overview/architecture/components/#dcos-iam) component, using public key cryptography. This works if the authentication token presented by the client has been signed by Bouncer using Bouncer's private key with the RS256 algorithm.
+# Out-of-band Verification of DC/OS Authentication tokens
+Other services can authenticate incoming requests on behalf of the DC/OS [Identity and Access Manager (IAM)](/1.13/overview/architecture/components/#dcos-iam) component, using public key cryptography. This works if the authentication token presented by the client has been signed by the IAM using its private key (with the RS256 algorithm).
 
 ## Bouncer JSON Web Key Set (JWKS) endpoint
 The Bouncer's JWKS endpoint (`/auth/jwks`) provides the public key details required for verifying the signature of type RS256 JWTs issued by Bouncer. The JSON document data structure emitted by that endpoint is compliant with [RFC 7517](https://tools.ietf.org/html/rfc7517). Within that data structure, the public key is parameterized according to [RFC 7518](https://tools.ietf.org/html/rfc7518).
@@ -28,7 +17,7 @@ The Bouncer's JWKS endpoint (`/auth/jwks`) provides the public key details requi
 Here is an example response:
 
 ```json
-curl localhost:8101/acs/api/v1/auth/jwks
+curl -k https://<host-ip/acs/api/v1/auth/jwks
 {
   "keys": [
     {
