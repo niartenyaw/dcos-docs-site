@@ -1,9 +1,10 @@
 ---
 layout: layout.pug
-navigationTitle: Troubleshooting Authentication
-menuWeight: 23
-excerpt: Troubleshooting authentication issues in DC/OS Open Source deployments
-title: Troubleshooting Authentication
+navigationTitle: Troubleshooting authentication
+title: Troubleshooting authentication
+excerpt: Troubleshooting authentication issues in Open DC/OS
+
+menuWeight: 30
 ---
 ## Ad Blockers and the DC/OS UI
 

@@ -9,21 +9,24 @@ menuWeight: 20
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-DC/OS provides authentication mechanisms for users in its user database to identify themselves.
+DC/OS provides login mechanisms for users in its user database to retrieve Authentication tokens which can then be used to identify themselves.
 
 Different DC/OS user types can be configured via the [IAM API](/1.13/security/oss/iam-api/); see [User Management](/1.13/security/oss/user-management/).
 
-Identification of users is enforced by Admin Router which authenticates users based on information from the DC/OS [Identity and Access Manager (IAM)](/1.13/overview/architecture/components/#dcos-iam). 
+Authentication enforced by Admin Router which authenticates users based on information from the DC/OS [Identity and Access Manager (IAM)](/1.13/overview/architecture/components/#dcos-iam). 
 
-Other authenticators can authenticate users on behalf of the DC/OS Identity and Access Manager (Bouncer) component, using out-of-band verficiation via public key cryptography.
+Other entities can also authenticate users on behalf of the DC/OS Identity and Access Manager component, using out-of-band verficiation via public key cryptography.
 
-**NOTE**: In DC/OS Open Source Admin Router is the only authenticator in the system.
+**NOTE**: In DC/OS Open Source Admin Router is the only entity in the system that authenticates users.
+
 
 DC/OS uses JSON Web Tokens (JWT) for the purpose of authenticating HTTP requests against the cluster. DC/OS authentication tokens are sent via HTTP in the `Authorization` header. The `Authorization` header value must be in the format: `token=<token>`. Other formats like `Bearer <token>` are not supported.
 
 From the [DC/OS CLI](/1.13/cli), you can log in to your cluster which results in obtaining a DC/OS authentication token. The token will then be used for authenticating the logged in on subsequent DC/OS CLI commands. 
 
 ## <a name="log-in-cli"></a>Authenticating through DC/OS CLI
+
+From the [DC/OS CLI](/1.13/cli), you can log in to your cluster which results in obtaining a DC/OS authentication token. The token will then be used to authenticate the user for subsequent DC/OS CLI commands. 
 
 Authentication is only supported for DC/OS CLI version 0.4.3 and later. See [here](/1.13/cli/update/) for upgrade instructions.
 

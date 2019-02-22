@@ -2,13 +2,12 @@
 layout: layout.pug
 navigationTitle:  Out-of-band Authentication
 title: Out-of-band Authentication
-excerpt: Verify DC/OS Authentication by 3rd-party authenticators
-menuWeight: 30
+excerpt: Out-of-band Verification of a DC/OS Authentication token
+menuWeight: 20
 
 ---
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-# Out-of-band Verification of DC/OS Authentication tokens
 Other services can authenticate incoming requests on behalf of the DC/OS [Identity and Access Manager (IAM)](/1.13/overview/architecture/components/#dcos-iam) component, using public key cryptography. This works if the authentication token presented by the client has been signed by the IAM using its private key (with the RS256 algorithm).
 
 ## Bouncer JSON Web Key Set (JWKS) endpoint

@@ -2,22 +2,20 @@
 layout: layout.pug
 navigationTitle:  Identity and Access Management API
 title: Identity and Access Management API
-menuWeight: 110
-excerpt: Managing users with the IAM API
+menuWeight: 40
+excerpt: Using the DC/OS Identity and Access Management API
 
 ---
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-The Identity and Access Management API allows you to manage users through a RESTful interface. It offers more functionality than the DC/OS web interface.
-
+The Identity and Access Management API allows you to manage users through a RESTful HTTP interface.
 
 # Request and response format
 
 The API supports JSON only. You must include `application/json` as your `Content-Type` in the HTTP header, as shown below.
 
     Content-Type: application/json
-
 
 # Host name and base path
 
@@ -31,105 +29,27 @@ Append `/acs/api/v1` to the host name, as shown below.
 
     https://<host-ip>/acs/api/v1
 
-
 # Authentication
 
 All IAM endpoints require an authentication token---except the `auth` endpoints. The `auth` endpoints do not require authentication tokens because their purpose is to return authentication tokens upon successful login.
 
-## Obtaining an authentication token
+# User management
 
-### Via the IAM API
+Open DC/OS supports three types of users that can be managed via the `/users` API endpoint.
 
-To get an authentication token, pass the credentials of a local user or service accout in the body of a `POST` request to `/auth/login`.
+The [User account management](/1.13/security/oss/user-account-management/) documentation covers invocation of available operations in detail.
 
-To log in regular user accounts supply user ID and password in the request.
+# Authentication token verification
 
-```bash
-curl -ki -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<username>", "password": "<password>"}' -H 'Content-Type: application/json'
-```
+The IAM enables other entites to verify DC/OS Authentication tokens out-of-band by retrieving users public key information via the `/auth/jwks` API endpoint.
 
-To log in service accounts supply user ID and a service login token in the request. The service login token is a RFC 7519 JWT of type RS256. It must be constructed by combining the service account user ID and an expiry (`exp`) claim in the JWT format. The JWT requirements for a service login token are:
-
-1. Header
-```json
-{
-    "alg": "RS256",
-    "typ": "JWT"
-}
-```
-
-2. Payload
-```json
-{
-    "uid": "<service-account-id>",
-    "exp": "<expiration time>"
-}
-```
-
-The provided information must then be encrypted using the service account's private key. The final encoding step results in a token in `base64` encoded JWT format which can be passed to the IAM.
-
-```bash
-curl -k -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<service-account-id>", "token": "<service-login-token>"}' -H 'Content-Type: application/json'
-```
-
-Both requests return a DC/OS authentication token as shown below.
-
-```json
-{
-  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJib290c3RyYXB1c2VyIiwiZXhwIjoxNDgyNjE1NDU2fQ.j3_31keWvK15shfh_BII7w_10MgAj4ay700Rub5cfNHyIBrWOXbedxdKYZN6ILW9vLt3t5uCAExOOFWJkYcsI0sVFcM1HSV6oIBvJ6UHAmS9XPqfZoGh0PIqXjE0kg0h0V5jjaeX15hk-LQkp7HXSJ-V7d2dXdF6HZy3GgwFmg0Ayhbz3tf9OWMsXgvy_ikqZEKbmPpYO41VaBXCwWPmnP0PryTtwaNHvCJo90ra85vV85C02NEdRHB7sqe4lKH_rnpz980UCmXdJrpO4eTEV7FsWGlFBuF5GAy7_kbAfi_1vY6b3ufSuwiuOKKunMpas9_NfDe7UysfPVHlAxJJgg"
-}
-```
-
-The DC/OS authentication token is also a RFC 7519 JWT of type RS256.
-
-### Via the DC/OS CLI
-
-When you log in to the [DC/OS CLI](/1.13/cli/) using `dcos auth login`, it stores the authentication token value locally. You can reference this value as a variable in `curl` commands (discussed in the next section).
-
-Alternatively, you can use the following command to get the authentication token value.
-
-```bash
-dcos config show core.dcos_acs_token
-```
-
-## Passing an authentication token
-
-### Using the HTTP header field
-
-Copy the token value and pass it in the `Authorization` field of the HTTP header, as shown below.
-
-```http
-Authorization: token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJib290c3RyYXB1c2VyIiwiZXhwIjoxNDgyNjE1NDU2fQ.j3_31keWvK15shfh_BII7w_10MgAj4ay700Rub5cfNHyIBrWOXbedxdKYZN6ILW9vLt3t5uCAExOOFWJkYcsI0sVFcM1HSV6oIBvJ6UHAmS9XPqfZoGh0PIqXjE0kg0h0V5jjaeX15hk-LQkp7HXSJ-V7d2dXdF6HZy3GgwFmg0Ayhbz3tf9OWMsXgvy_ikqZEKbmPpYO41VaBXCwWPmnP0PryTtwaNHvCJo90ra85vV85C02NEdRHB7sqe4lKH_rnpz980UCmXdJrpO4eTEV7FsWGlFBuF5GAy7_kbAfi_1vY6b3ufSuwiuOKKunMpas9_NfDe7UysfPVHlAxJJgg
-```
-
-### Using the `curl`
-
-#### Via `curl` as a string value
-
-Using `curl`, for example, you would pass this value as follows.
-
-```bash
-curl -H "Authorization: token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJib290c3RyYXB1c2VyIiwiZXhwIjoxNDgyNjE1NDU2fQ.j3_31keWvK15shfh_BII7w_10MgAj4ay700Rub5cfNHyIBrWOXbedxdKYZN6ILW9vLt3t5uCAExOOFWJkYcsI0sVFcM1HSV6oIBvJ6UHAmS9XPqfZoGh0PIqXjE0kg0h0V5jjaeX15hk-LQkp7HXSJ-V7d2dXdF6HZy3GgwFmg0Ayhbz3tf9OWMsXgvy_ikqZEKbmPpYO41VaBXCwWPmnP0PryTtwaNHvCJo90ra85vV85C02NEdRHB7sqe4lKH_rnpz980UCmXdJrpO4eTEV7FsWGlFBuF5GAy7_kbAfi_1vY6b3ufSuwiuOKKunMpas9_NfDe7UysfPVHlAxJJgg"
-```
-
-#### Via `curl` as a DC/OS CLI variable
-
-You can then reference this value in your `curl` commands, as shown below.
-
-```bash
-curl -H "Authorization: token=$(dcos config show core.dcos_acs_token)"
-```
-
-## Refreshing the authentication token
-
-Authentication tokens expire after five days, by default. If your program needs to run longer than five days, you will need a service account.
-
+See [Out-of-band Verification](/1.13/security/oss/authentication/authentication-token/out-of-band-verification/) on how to implement Authentication token verification on behalf of the IAM.
 
 # API reference
 
 [swagger api='/1.13/api/oss-iam.yaml']
 
-
 # Logging
 
 While the API returns informative error messages, you may also find it useful to check the logs of the service. Refer to [Service and Task Logging](/1.13/monitoring/logging/) for instructions.
+

@@ -1,20 +1,22 @@
 ---
 layout: layout.pug
-navigationTitle:  Regular users
-title: Authentication tokens for regular users
-excerpt: Obtaining DC/OS Authentication tokens as regular user
+navigationTitle:  Local user login
+title: Local user login
+excerpt: Obtain DC/OS Authentication tokens as a local user
 menuWeight: 20
 
 ---
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-# Via the DC/OS CLI
+**NOTE**: In Open DC/OS local users cannot log in using the web interface.
+
+# Login using the DC/OS CLI
 
 **Prerequisite:**
 - [DC/OS CLI](/1.13/cli/)
 
-Using the [DC/OS CLI](/1.13/cli/) one can log in as regular DC/OS user by specifying the `dcos-users` login provider.
+Using the [DC/OS CLI](/1.13/cli/) one can log in as local DC/OS user by specifying the `dcos-users` login provider.
 
 1. To log in to the DC/OS CLI, enter the [auth login](/1.13/cli/command-reference/dcos-auth/dcos-auth-login/) command:
 
@@ -33,11 +35,11 @@ dcos config show core.dcos_acs_token
 export TOKEN=$(dcos config show core.dcos_acs_token)
 ```
 
-# Via the IAM API
+# Login using the IAM API
 
-Regular users can utilize the [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) directly for logging in to DC/OS via HTTP. Upon login they will receive a DC/OS Authentication token.
+Local users can log in using [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/).
 
-1. To log in regular user accounts supply `<username>` and `<password>` in the following command before executing it:
+1. To log in local user accounts supply `<username>` and `<password>` in the following command before executing it:
 
 ```bash
 curl -k -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<username>", "password": "<password>"}' -H 'Content-Type: application/json'

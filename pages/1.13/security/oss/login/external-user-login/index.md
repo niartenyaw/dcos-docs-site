@@ -1,15 +1,17 @@
 ---
 layout: layout.pug
-navigationTitle:  External users
-title: Authentication tokens for external users
-excerpt: Obtaining DC/OS Authentication tokens as external user
+navigationTitle:  External user login
+title: External user login
+excerpt: Obtain DC/OS Authentication tokens as an external user
 menuWeight: 10
 
 ---
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-# Via the DC/OS CLI
+**NOTE**: Neither Mesosphere nor Auth0 receive or store user credentials from external users.
+
+# Login using the DC/OS CLI
 
 **Prerequisite:**
 - [DC/OS CLI](/1.13/cli/)
@@ -28,25 +30,26 @@ Enter OpenID Connect ID Token:
 
 2. Follow the displayed instructions to trigger the browser login flow.
 
-3. Copy the `OpenID Connect ID token` from the modal dialog that appears in the browser.
+3. After logging in through your provider, copy the `OpenID Connect ID token` that appears in the browser.
 
 4. Paste the `OpenID Connect ID token` into the DC/OS CLI for login completion.
 
 **NOTE**: The `--provider` argument is set to `dcos-oidc-auth0` by default.
 
-5. Display the DC/OS authentication token by executing the following command:
+5. Display the DC/OS Authentication token by executing the following command:
 
 ```bash
 dcos config show core.dcos_acs_token
 ```
-6. Export the DC/OS Authentication token into environment for using it in other commands:
+6. Export the DC/OS Authentication token into environment as `TOKEN` to use it in API requests:
 ```bash
 export TOKEN=$(dcos config show core.dcos_acs_token)
 ```
 
-# Via the web interface
+# Login using the web interface
 
 1.  Launch the DC/OS web interface.
-2.  Log in through a single sign-on flow using the identity provider of your choice (Google, GitHub, and Microsoft).
+2.  Log in through a single sign-on flow using the identity provider of your choice (Google, GitHub, or Microsoft).
 
-**NOTE**: The Single-Sign-On flow will result in the DC/OS Authentication token being stored in a browser cookie.
+**NOTE**: The Single Sign-On flow will result in the DC/OS Authentication token being stored in a browser cookie.
+
