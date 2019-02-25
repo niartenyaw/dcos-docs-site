@@ -1,8 +1,8 @@
 ---
 layout: layout.pug
 navigationTitle: Troubleshooting
-title: Troubleshooting User Management
-excerpt: Troubleshooting user management in Open DC/OS
+title: User Account Management Troubleshooting
+excerpt: Troubleshooting user account management in Open DC/OS
 
 menuWeight: 50
 ---

@@ -1,7 +1,7 @@
 ---
 layout: layout.pug
 navigationTitle: Troubleshooting
-title: Troubleshooting Login 
+title: Login Troubleshooting
 excerpt: Troubleshooting login in DC/OS
 
 menuWeight: 50

@@ -1,7 +1,7 @@
 ---
 layout: layout.pug
 navigationTitle: Troubleshooting
-title: Troubleshooting Authentication
+title: Authentication Troubleshooting
 excerpt: Troubleshooting authentication in Open DC/OS
 
 menuWeight: 50
