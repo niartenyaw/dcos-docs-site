@@ -2,7 +2,7 @@
 layout: layout.pug
 navigationTitle:  Out-of-band Token Verification
 title: Out-of-band Token Verification
-excerpt: Out-of-band verification of a DC/OS Authentication token
+excerpt: Out-of-band verification of DC/OS Authentication tokens
 menuWeight: 20
 
 ---

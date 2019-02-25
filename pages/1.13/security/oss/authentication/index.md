@@ -21,7 +21,7 @@ A DC/OS Authentication token is also used internally by the [DC/OS CLI](/1.13/cl
 
 In Open DC/OS the only authenticator in the system is [Admin Router](/1.13/overview/architecture/components/#admin-router). It enforces DC/OS Authentication token verification based on information from the [Identity and Access Manager (IAM)](/1.13/overview/architecture/components/#dcos-iam). 
 
-3rd-party entities can be programmed to authenticate users on behalf of the DC/OS IAM by using out-of-band verficiation via public key cryptography; see [Out-of-band token verification](/1.13/security/oss/authentication/out-of-band-verification/) for instructions.
+3rd-party entities can be enabled to become authenticators on behalf of the DC/OS IAM by using out-of-band verficiation via public key cryptography; see [Out-of-band token verification](/1.13/security/oss/authentication/out-of-band-verification/) for instructions.
 
 <p class="message--note"><strong>NOTE: </strong>In Open DC/OS authentication equals authorization. Therefore, any entity that obtains a valid DC/OS Authentication token has full access to the cluster.</p>
 

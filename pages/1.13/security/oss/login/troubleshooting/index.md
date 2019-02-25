@@ -1,13 +1,13 @@
 ---
 layout: layout.pug
 navigationTitle: Troubleshooting
-title: Login Troubleshooting
-excerpt: Troubleshooting login in DC/OS
+title: Troubleshooting Login 
+excerpt: Troubleshooting login issues in DC/OS
 
 menuWeight: 50
 ---
 
-# Debugging
+# Debugging Login
 
 ## Admin Router
 

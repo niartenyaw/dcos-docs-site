@@ -1,17 +1,17 @@
 ---
 layout: layout.pug
 navigationTitle: Troubleshooting
-title: User Account Management Troubleshooting
-excerpt: Troubleshooting user account management in Open DC/OS
+title: Troubleshooting User Account Management
+excerpt: Troubleshooting user account management issues in DC/OS
 
 menuWeight: 50
 ---
 
-# Debugging
+# Debugging User Account Management
 
 ## Admin Router
 
-Admin Router receives all user account management operations via HTTP and hands them over to the IAM. To debug user management problems, make sure Admin Router on the masters receive the performed operation using the following commands.
+Admin Router receives all user account management operations via HTTP and hands them over to the IAM. To debug user management problems, make sure Admin Router on the masters receives the HTTP request for the intended operation using the following commands.
 
 ```bash
 sudo journalctl -u dcos-adminrouter.service
@@ -56,6 +56,6 @@ This is done easiest by restarting the CockroachDB instances that report `is_liv
 sudo systemctl restart dcos-cockroach.service
 ```
 
-If the raft quorum for a paricular range cannot be recovered (for example the, `ranges_unavailable` persist and the data is inevitably lost because it cannot be read or written.
+If the raft quorum for a paricular range cannot be recovered and the `ranges_unavailable` persist, the unavailable data is inevitably lost because it cannot be read nor written.
 
 **NOTE**: Re-installing or adding new DC/OS master nodes (CockroachDB nodes) will not add to the quorum for the ranges that are already in `ranges_unavailable` state. Furthermore, wiping existing CockroachDB instances lowers the chance for recovery.

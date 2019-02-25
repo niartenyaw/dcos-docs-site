@@ -1,8 +1,8 @@
 ---
 layout: layout.pug
 navigationTitle: Troubleshooting
-title: Authentication Troubleshooting
-excerpt: Troubleshooting authentication in Open DC/OS
+title: Troubleshooting Authentication 
+excerpt: Troubleshooting authentication issues in DC/OS
 
 menuWeight: 50
 ---
@@ -10,7 +10,7 @@ menuWeight: 50
 
 During testing, we have observed issues with loading the DC/OS UI login page when certain ad blockers such as HTTP Switchboard or Privacy Badger are active. Other ad blockers like uBlock Origin are known to work.
 
-# Debugging
+# Debugging Authentication
 
 ## Admin Router
 
