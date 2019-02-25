@@ -1,15 +1,13 @@
 ---
 layout: layout.pug
-navigationTitle:  External user login
-title: External user login
-excerpt: Obtain DC/OS Authentication tokens as an external user
+navigationTitle:  External User Login
+title: External User Login
+excerpt: Log in to DC/OS as an external user
 menuWeight: 10
 
 ---
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
-
-**NOTE**: Neither Mesosphere nor Auth0 receive or store user credentials from external users.
 
 # Login using the DC/OS CLI
 

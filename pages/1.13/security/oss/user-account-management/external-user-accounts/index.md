@@ -1,13 +1,13 @@
 ---
 layout: layout.pug
-navigationTitle: External user accounts
-title: Manage external user accounts
+navigationTitle: External User Accounts
+title: Manage External User Accounts
 excerpt: External user account management in DC/OS
 menuWeight: 10
 ---
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-An external user is automatically created for the first user who logs in to the DC/OS cluster via a Single-Sign-On flow.
+**NOTE**: An external user is automatically created for the first user who logs in to the DC/OS cluster via the web interface.
 
 # Add an external user account
 
@@ -15,7 +15,7 @@ An external user is automatically created for the first user who logs in to the 
 
 1.  Log in to the web interface.
 
-2.  Click on  **Organization** in the left hand menu. From the **Users** screen, click the plus sign (**+**) in the upper right corner, and fill in the new user email address. New users are automatically sent an email notifying them of access to DC/OS.
+2.  Click on  **Organization** in the left hand menu. From the **Users** screen, click the plus sign (**+**) in the upper right corner, and fill in the new user email address.
 
 ![new DC/OS user](/1.13/img/1-11-add-user-to-cluster.png)
 

@@ -1,8 +1,8 @@
 ---
 layout: layout.pug
-navigationTitle: Local user accounts
-title: Manage local user accounts
-excerpt: Local user accounts management in DC/OS
+navigationTitle: Local User Accounts
+title: Manage Local User Accounts
+excerpt: Local user account management in DC/OS
 menuWeight: 20
 ---
 
@@ -68,5 +68,6 @@ curl -i -X DELETE http://<host-ip>/acs/api/v1/users/<username> -H 'Content-Type:
 
 ## Using the web interface
 
-1.  From the **Users** screen, select the username and click **Delete**.
-2.  Click **Delete** to confirm the action.
+1. Log in to the web interface.
+2. From the **Users** screen, select the username and click **Delete**.
+3. Click **Delete** to confirm the action.

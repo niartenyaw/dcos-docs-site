@@ -1,7 +1,7 @@
 ---
 layout: layout.pug
-navigationTitle: DC/OS Authentication token
-title: DC/OS Authentication token
+navigationTitle: DC/OS Authentication Token
+title: DC/OS Authentication Token
 excerpt: Getting familiar with DC/OS Authentication tokens
 menuWeight: 10
 
@@ -13,7 +13,7 @@ menuWeight: 10
 
 DC/OS uses JSON Web Tokens named `DC/OS Authentication token` for the purpose of authenticating users against the cluster.
 
-## Token format
+## Authentication token format
 
 A DC/OS Authentication token is a RFC 7519 JSOM Web Token (JWT) of type RS256. The RS256 algorithm is specified in the JWT header. The JWT payload contains the user or service ID that the token was issued for in the (`uid`) claim and an (`exp`) claim indicating the time after which the token will be considered invalid.
 

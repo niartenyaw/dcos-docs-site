@@ -41,9 +41,9 @@ The [User account management](/1.13/security/oss/user-account-management/) docum
 
 # Authentication token verification
 
-The IAM enables other entites to verify DC/OS Authentication tokens out-of-band by retrieving users public key information via the `/auth/jwks` API endpoint.
+The IAM can provide 3rd-party entites with public key information via the `/auth/jwks` API endpoint for verifying DC/OS Authentication tokens out-of-band.
 
-See [Out-of-band Verification](/1.13/security/oss/authentication/authentication-token/out-of-band-verification/) on how to implement Authentication token verification on behalf of the IAM.
+See [Out-of-band token verification](/1.13/security/oss/authentication/out-of-band-verification/) on how to implement authentication token verification on behalf of the IAM.
 
 # API reference
 

@@ -3,37 +3,29 @@ layout: layout.pug
 navigationTitle:  Authentication
 title: Authentication
 excerpt: Authenticating users against DC/OS
-menuWeight: 20
+menuWeight: 30
 
 ---
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-DC/OS provides login mechanisms for users in its user database to retrieve Authentication tokens which can then be used to identify themselves.
+# Authentication in DC/OS
 
-Different DC/OS user types can be configured via the [IAM API](/1.13/security/oss/iam-api/); see [User Management](/1.13/security/oss/user-management/).
+In DC/OS user authentication is enabled by default.
 
-Authentication enforced by Admin Router which authenticates users based on information from the DC/OS [Identity and Access Manager (IAM)](/1.13/overview/architecture/components/#dcos-iam). 
+Every user that wants to perform an operation on a DC/OS cluster other than login must first be authenticated. DC/OS handles user authentication by first distributing and then verifying dedicated authentication tokens.
 
-Other entities can also authenticate users on behalf of the DC/OS Identity and Access Manager component, using out-of-band verficiation via public key cryptography.
+Upon [login](/1.13/security/oss/login/) to DC/OS users receive a [DC/OS Authentication token](/1.13/security/oss/authentication/authentication-token). The DC/OS Authentication token can be used for authenticating subsequent requests to the API; see [Pass an authentication token to the API](/1.13/security/oss/authentication/authentication-token/#pass-an-authentication-token-to-the-api).
 
-**NOTE**: In DC/OS Open Source Admin Router is the only entity in the system that authenticates users.
+A DC/OS Authentication token is also used internally by the [DC/OS CLI](/1.13/cli/) for authenticating subsequent CLI commands. Authentication is only supported for DC/OS CLI version 0.4.3 and later. See [here](/1.12/cli/update/) for upgrade instructions.
 
+In Open DC/OS the only authenticator in the system is [Admin Router](/1.13/overview/architecture/components/#admin-router). It enforces DC/OS Authentication token verification based on information from the [Identity and Access Manager (IAM)](/1.13/overview/architecture/components/#dcos-iam). 
 
-DC/OS uses JSON Web Tokens (JWT) for the purpose of authenticating HTTP requests against the cluster. DC/OS authentication tokens are sent via HTTP in the `Authorization` header. The `Authorization` header value must be in the format: `token=<token>`. Other formats like `Bearer <token>` are not supported.
+3rd-party entities can be programmed to authenticate users on behalf of the DC/OS IAM by using out-of-band verficiation via public key cryptography; see [Out-of-band token verification](/1.13/security/oss/authentication/out-of-band-verification/) for instructions.
 
-From the [DC/OS CLI](/1.13/cli), you can log in to your cluster which results in obtaining a DC/OS authentication token. The token will then be used for authenticating the logged in on subsequent DC/OS CLI commands. 
+<p class="message--note"><strong>NOTE: </strong>In Open DC/OS authentication equals authorization. Therefore, any entity that obtains a valid DC/OS Authentication token has full access to the cluster.</p>
 
-## <a name="log-in-cli"></a>Authenticating through DC/OS CLI
-
-From the [DC/OS CLI](/1.13/cli), you can log in to your cluster which results in obtaining a DC/OS authentication token. The token will then be used to authenticate the user for subsequent DC/OS CLI commands. 
-
-Authentication is only supported for DC/OS CLI version 0.4.3 and later. See [here](/1.13/cli/update/) for upgrade instructions.
-
-The DC/OS CLI stores the token in a configuration file in the `.dcos` directory under the home directory of the user running the CLI. This token can be used with the `curl` command to access DC/OS APIs, using `curl` or `wget`. For example, `curl -H 'Authorization: token=<token>' http://cluster`.
-
-
-## Disabling DC/OS Authentication
+## Disabling authentication
 
 If you are doing an [advanced installation](/1.13/installing/production/deploying-dcos/installation/), you can disable authentication by adding this parameter to your configuration file (`genconf/config.yaml`). 
 
@@ -47,20 +39,3 @@ If you are doing a cloud installation on [AWS](/1.13/installing/oss/cloud/aws/),
 If you are doing a cloud installation on [Azure](/1.13/installing/evaluation/azure/), you cannot disable authentication.
 
 Note that if you have already installed your cluster and would like to disable this in-place, you can go through an upgrade with the configuration parameter set.
-
-
-## Further reading
-
-- [Let’s encrypt DC/OS!](https://mesosphere.com/blog/2016/04/06/lets-encrypt-dcos/):
-  a blog post about using [Let's Encrypt](https://letsencrypt.org/) with
-  services running on DC/OS.
-
-## Future work
-
-We are looking forward to working with the DC/OS community on improving existing
-security features as well as on introducing new ones in the coming releases.
-
-## Next Steps
-
-- [Understand DC/OS security](/1.13/administering-clusters/)
-- [Learn how to monitor a DC/OS cluster](/1.13/monitoring/)

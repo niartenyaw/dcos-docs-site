@@ -1,15 +1,13 @@
 ---
 layout: layout.pug
-navigationTitle:  Local user login
-title: Local user login
-excerpt: Obtain DC/OS Authentication tokens as a local user
+navigationTitle:  Local User Login
+title: Local User Login
+excerpt: Log in to DC/OS as a local user
 menuWeight: 20
 
 ---
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
-
-**NOTE**: In Open DC/OS local users cannot log in using the web interface.
 
 # Login using the DC/OS CLI
 

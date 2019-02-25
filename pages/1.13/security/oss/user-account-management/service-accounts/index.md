@@ -1,7 +1,7 @@
 ---
 layout: layout.pug
-navigationTitle: Service accounts
-title: Manage service accounts
+navigationTitle: Service Accounts
+title: Manage Service Accounts
 excerpt: Service account management in DC/OS
 menuWeight: 30
 ---
@@ -56,20 +56,20 @@ curl -i -X GET http://<host-ip>/acs/api/v1/users\?type\=service -H 'Content-Type
 **Prerequisite:**
 - [DC/OS Authentication token](/1.13/security/oss/authentication/authentication-token/) exported into the environment as `TOKEN`.
 
-To change a service account's public key using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/), supply new public key in the `public-key.pem` file. Then replace `<service-account-id>` in the following command and execute it:
+To change a service account's public key using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) supply a new public key in the `public-key.pem` file. Then replace `<service-account-id>` in the following command and execute it:
 
 ```bash
 curl -i -X PATCH http://<host-ip>/acs/api/v1/users/<service-account-id> -d '{"public_key": "'"$(sed ':a;N;$!ba;s/\n/\\n/g' public-key.pem)"'", "provider_type": "internal"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
-# Delete a service account
+# Remove a service account
 
 ## Using the IAM API
 
 **Prerequisite:**
 - [DC/OS Authentication token](/1.13/security/oss/authentication/authentication-token/) exported into the environment as `TOKEN`.
 
-To delete a local user account using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<username>` with the corresponding value and execute the following command:
+To remove a local user account using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<username>` with the corresponding value and execute the following command:
 
 ```bash
 curl -i -X DELETE http://<host-ip>/acs/api/v1/users/<service-account-id> -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
