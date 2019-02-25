@@ -2,7 +2,7 @@
 layout: layout.pug
 navigationTitle:  Local User Login
 title: Local User Login
-excerpt: Log in to DC/OS as a local user
+excerpt: Logging in to DC/OS as a local user
 menuWeight: 20
 
 ---

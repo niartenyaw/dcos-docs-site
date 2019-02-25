@@ -1,8 +1,8 @@
 ---
 layout: layout.pug
 navigationTitle: Local User Accounts
-title: Manage Local User Accounts
-excerpt: Local user account management in DC/OS
+title: Local User Account Management
+excerpt: Managing local user accounts
 menuWeight: 20
 ---
 

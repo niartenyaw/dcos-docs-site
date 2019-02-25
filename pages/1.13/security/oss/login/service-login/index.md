@@ -2,7 +2,7 @@
 layout: layout.pug
 navigationTitle:  Service Login
 title: Service Login
-excerpt: Log in to DC/OS as a service
+excerpt: Logging in to DC/OS as a service
 menuWeight: 30
 
 ---

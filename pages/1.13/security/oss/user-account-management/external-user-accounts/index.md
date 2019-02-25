@@ -1,8 +1,8 @@
 ---
 layout: layout.pug
 navigationTitle: External User Accounts
-title: Manage External User Accounts
-excerpt: External user account management in DC/OS
+title: External User Account Management
+excerpt: Managing external user accounts
 menuWeight: 10
 ---
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->

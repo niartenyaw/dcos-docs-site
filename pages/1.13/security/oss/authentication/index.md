@@ -13,7 +13,9 @@ menuWeight: 30
 
 In DC/OS user authentication is enabled by default.
 
-Every user that wants to perform an operation on a DC/OS cluster other than login must first be authenticated. DC/OS handles user authentication by first distributing and then verifying dedicated authentication tokens.
+Every user that wants to perform an operation on a DC/OS cluster (other than login) must first be authenticated.
+
+DC/OS handles user authentication decentralized by the means of authentication tokens. Authentication tokens are distributed by the Identity and Access Manager (IAM) on a per user basis. The tokens can be verified by the IAM, but also out-of-band by any 3rd-party entity. Allowing token verification to happen independent of the IAM is what makes this approach highly scalable in comparison to centralized session state keeping. On the other hand with tokens user authentication state cannot easily be revoked.
 
 Upon [login](/1.13/security/oss/login/) to DC/OS users receive a [DC/OS Authentication token](/1.13/security/oss/authentication/authentication-token). The DC/OS Authentication token can be used for authenticating subsequent requests to the API; see [Pass an authentication token to the API](/1.13/security/oss/authentication/authentication-token/#pass-an-authentication-token-to-the-api).
 

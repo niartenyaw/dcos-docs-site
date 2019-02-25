@@ -9,11 +9,9 @@ menuWeight: 10
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-# DC/OS Authentication token
+DC/OS uses JSON Web Tokens named `DC/OS Authentication token` for the purpose of authenticating users against the cluster. The Identity and Access Manager is the only entity in the cluster that issues DC/OS Authentication tokens.
 
-DC/OS uses JSON Web Tokens named `DC/OS Authentication token` for the purpose of authenticating users against the cluster.
-
-## Authentication token format
+# DC/OS Authentication token format
 
 A DC/OS Authentication token is a RFC 7519 JSOM Web Token (JWT) of type RS256. The RS256 algorithm is specified in the JWT header. The JWT payload contains the user or service ID that the token was issued for in the (`uid`) claim and an (`exp`) claim indicating the time after which the token will be considered invalid.
 
@@ -37,7 +35,7 @@ In the process of generating a new DC/OS Authentication token the IAM signs the 
 
 DC/OS Authentication tokens can be inspected via [jwt.io](https://jwt.io) or via your favorite JWT library.
 
-## Lifetime and renewal
+# Lifetime and renewal
 
 In Open DC/OS Authentication tokens are valid for five days after they have been issued. If your program needs to run longer than five days, you will need to log in again. Using [service accounts](/1.13/security/oss/user-account-management/service-accounts/) and the [service login](/1.13/security/oss/authentication/authentication-token/service-login/) make it easy to automate this process when deploying long-running services.
 
@@ -63,26 +61,4 @@ A DC/OS Authentication token must be passed in the `Authorization` HTTP header. 
 Authorization: token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJib290c3RyYXB1c2VyIiwiZXhwIjoxNDgyNjE1NDU2fQ.j3_31keWvK15shfh_BII7w_10MgAj4ay700Rub5cfNHyIBrWOXbedxdKYZN6ILW9vLt3t5uCAExOOFWJkYcsI0sVFcM1HSV6oIBvJ6UHAmS9XPqfZoGh0PIqXjE0kg0h0V5jjaeX15hk-LQkp7HXSJ-V7d2dXdF6HZy3GgwFmg0Ayhbz3tf9OWMsXgvy_ikqZEKbmPpYO41VaBXCwWPmnP0PryTtwaNHvCJo90ra85vV85C02NEdRHB7sqe4lKH_rnpz980UCmXdJrpO4eTEV7FsWGlFBuF5GAy7_kbAfi_1vY6b3ufSuwiuOKKunMpas9_NfDe7UysfPVHlAxJJgg
 ```
 
-Othen formats like `Bearer <token>` are not supported.
-
-# Examples for using Authentication tokens
-
-DC/OS endpoints expect to find your authentication token in the `Authorization` field of your HTTP header as follows.
-
-```http
-Authorization: token=<authentication-token>
-```
-
-With `cURL`, you can use command substitution to extract the token value from your configuration file. The following examples illustrate this syntax.
-
-**Sample Marathon request:**
-
-```bash
-curl --header "Authorization: token=$(dcos config show core.dcos_acs_token)" http://<host-ip>/service/marathon/v2/apps
-```
-
-**Sample Mesos request:**
-
-```bash
-curl --header "Authorization: token=$(dcos config show core.dcos_acs_token)" http://<host-ip>/mesos/master/state.json
-```
+Other formats like `Bearer <token>` are not supported.

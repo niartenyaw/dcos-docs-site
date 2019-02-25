@@ -2,7 +2,7 @@
 layout: layout.pug
 navigationTitle:  External User Login
 title: External User Login
-excerpt: Log in to DC/OS as an external user
+excerpt: Logging in to DC/OS as an external user
 menuWeight: 10
 
 ---

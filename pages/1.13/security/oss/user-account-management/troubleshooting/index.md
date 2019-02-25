@@ -2,7 +2,7 @@
 layout: layout.pug
 navigationTitle: Troubleshooting
 title: Troubleshooting User Account Management
-excerpt: Troubleshooting user account management issues in DC/OS
+excerpt: Troubleshooting user account management issues
 
 menuWeight: 50
 ---

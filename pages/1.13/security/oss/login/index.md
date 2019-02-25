@@ -2,7 +2,7 @@
 layout: layout.pug
 navigationTitle: Login
 title: Login
-excerpt: Log in to your DC/OS cluster
+excerpt: Logging in to your DC/OS cluster
 menuWeight: 20
 
 ---
