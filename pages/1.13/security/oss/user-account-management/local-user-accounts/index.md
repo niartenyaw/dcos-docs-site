@@ -15,10 +15,10 @@ menuWeight: 20
 **Prerequisite:**
 - [DC/OS Authentication token](/1.13/security/oss/authentication/authentication-token/) exported into the environment as `TOKEN`.
 
-To add a local user account using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<username>` and `<password>` with the corresponding values and execute the following command:
+To add a local user account using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<uid>` and `<password>` with the corresponding values and execute the following command:
 
 ```bash
-curl -i -X PUT http://<host-ip>/acs/api/v1/users/<username> -d '{"password": "<password>"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+curl -i -X PUT http://<host-ip>/acs/api/v1/users/<uid> -d '{"password": "<password>"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
 **NOTE**: The password must be at least 5 characters long.
@@ -45,10 +45,10 @@ curl -i -X GET http://<host-ip>/acs/api/v1/users -H 'Content-Type: application/j
 **Prerequisite:**
 - [DC/OS Authentication token](/1.13/security/oss/authentication/authentication-token/) exported into the environment as `TOKEN`.
 
-To change a local user account's password using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<username>` and `<password>` with the corresponding values and execute the following command:
+To change a local user account's password using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<uid>` and `<password>` with the corresponding values and execute the following command:
 
 ```bash
-curl -i -X PATCH http://<host-ip>/acs/api/v1/users/<username> -d '{"password": "<password>"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+curl -i -X PATCH http://<host-ip>/acs/api/v1/users/<uid> -d '{"password": "<password>"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
 **NOTE**: The password must be at least 5 characters long.
@@ -60,14 +60,14 @@ curl -i -X PATCH http://<host-ip>/acs/api/v1/users/<username> -d '{"password": "
 **Prerequisite:**
 - [DC/OS Authentication token](/1.13/security/oss/authentication/authentication-token/) exported into the environment as `TOKEN`.
 
-To delete a local user account using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<username>` with the corresponding value and execute the following command:
+To delete a local user account using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<uid>` with the corresponding value and execute the following command:
 
 ```bash
-curl -i -X DELETE http://<host-ip>/acs/api/v1/users/<username> -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+curl -i -X DELETE http://<host-ip>/acs/api/v1/users/<uid> -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
 ## Using the web interface
 
 1. Log in to the web interface.
-2. From the **Users** screen, select the username and click **Delete**.
+2. From the **Users** screen, select the uid and click **Delete**.
 3. Click **Delete** to confirm the action.

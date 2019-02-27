@@ -30,10 +30,10 @@ openssl genpkey -algorithm RSA -out private-key.pem -pkeyopt rsa_keygen_bits:204
 openssl rsa -pubout -in private-key.pem -out public-key.pem
 ```
 
-3. Then replace `<service-account-id>` with the desired value in the following command and execute it:
+3. Then replace `<uid>` with the desired value in the following command and execute it:
 
 ```bash
-curl -i -X PUT http://<host-ip>/acs/api/v1/users/<service-account-id> -d '{"public_key": "'"$(sed ':a;N;$!ba;s/\n/\\n/g' public-key.pem)"'", "provider_type": "internal"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+curl -i -X PUT http://<host-ip>/acs/api/v1/users/<uid> -d '{"public_key": "'"$(sed ':a;N;s/\n/\\n/g;ta' public-key.pem)"'"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
 # List service accounts
@@ -56,10 +56,10 @@ curl -i -X GET http://<host-ip>/acs/api/v1/users\?type\=service -H 'Content-Type
 **Prerequisite:**
 - [DC/OS Authentication token](/1.13/security/oss/authentication/authentication-token/) exported into the environment as `TOKEN`.
 
-To change a service account's public key using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) supply a new public key in the `public-key.pem` file. Then replace `<service-account-id>` in the following command and execute it:
+To change a service account's public key using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) supply a new public key in the `public-key.pem` file. Then replace `<uid>` in the following command and execute it:
 
 ```bash
-curl -i -X PATCH http://<host-ip>/acs/api/v1/users/<service-account-id> -d '{"public_key": "'"$(sed ':a;N;$!ba;s/\n/\\n/g' public-key.pem)"'", "provider_type": "internal"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+curl -i -X PATCH http://<host-ip>/acs/api/v1/users/<uid> -d '{"public_key": "'"$(sed ':a;N;$!ba;s/\n/\\n/g' public-key.pem)"'"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
 # Remove a service account
@@ -72,5 +72,5 @@ curl -i -X PATCH http://<host-ip>/acs/api/v1/users/<service-account-id> -d '{"pu
 To remove a local user account using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<username>` with the corresponding value and execute the following command:
 
 ```bash
-curl -i -X DELETE http://<host-ip>/acs/api/v1/users/<service-account-id> -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+curl -i -X DELETE http://<host-ip>/acs/api/v1/users/<uid> -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
