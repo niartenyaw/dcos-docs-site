@@ -19,7 +19,6 @@ sudo journalctl -u dcos-adminrouter.service
 
 ## Identity and Access Manager
 
-The IAM performs interactions with running on master nodes CockroachDB to store and retrieve DC/OS user information.
 To debug user account management problems, check the IAM (Bouncer) on the masters using the following commands.
 
 ```bash
@@ -28,6 +27,7 @@ sudo journalctl -u dcos-bouncer.service
 
 ## CockroachDB
 
+The IAM stores user information in CockroachDB running on master nodes.
 If Admin Router and the IAM received the user management operation to perform according to their logs and the IAM could not fulfill the request in it likely that CockroachDB is in trouble. In this case check for errors or unusual patterns in the CockroachDB log on all master nodes.
 
 ```bash
@@ -56,6 +56,6 @@ This is done easiest by restarting the CockroachDB instances that report `is_liv
 sudo systemctl restart dcos-cockroach.service
 ```
 
-If the raft quorum for a paricular range cannot be recovered and the `ranges_unavailable` persist, the unavailable data is inevitably lost because it cannot be read nor written.
+If the raft quorum for a particular range cannot be recovered and the `ranges_unavailable` persist, the unavailable data is inevitably lost because it cannot be read nor written.
 
 **NOTE**: Re-installing or adding new DC/OS master nodes (CockroachDB nodes) will not add to the quorum for the ranges that are already in `ranges_unavailable` state. Furthermore, wiping existing CockroachDB instances lowers the chance for recovery.

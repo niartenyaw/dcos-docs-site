@@ -10,7 +10,7 @@ Ensure the network is setup according to the information for [securing your clus
 
 All access management in DC/OS is done via the DC/OS Identity and Access Manager (IAM). This includes user account management, login as well as authentication token distribution. The IAM provides an HTTP API for managing user accounts in a RESTful fashion.
 
-Authentication tokens can be obtained using [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html), which is a simple identity layer built on top of the [OAuth 2.0](http://oauth.net/2/) protocol.
+Authentication tokens can be obtained using [OpenID Connect 1.0](https://openid.net/specs/openid-connect-core-1_0.html), which is an identity layer built on top of the [OAuth 2.0](http://oauth.net/2/) protocol.
 
 Local user and service accounts can be configured for logging in without external dependencies and for automating authentication against the cluster in a secure manner.
 

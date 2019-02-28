@@ -8,7 +8,7 @@ menuWeight: 20
 ---
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-Other services can authenticate incoming requests on behalf of the DC/OS [Identity and Access Manager (IAM)](/1.13/overview/architecture/components/#dcos-iam) component, using public key cryptography. This works if the authentication token presented by the client has been signed by the IAM using its private key (with the RS256 algorithm).
+Other services can authenticate incoming requests on behalf of the DC/OS [Identity and Access Manager (IAM)](/1.13/overview/architecture/components/#dcos-iam) component, using public key cryptography. This works if the authentication token presented by the client has been signed by the IAM with its private key.
 
 ## Bouncer JSON Web Key Set (JWKS) endpoint
 The Bouncer's JWKS endpoint (`/auth/jwks`) provides the public key details required for verifying the signature of type RS256 JWTs issued by Bouncer. The JSON document data structure emitted by that endpoint is compliant with [RFC 7517](https://tools.ietf.org/html/rfc7517). Within that data structure, the public key is parameterized according to [RFC 7518](https://tools.ietf.org/html/rfc7518).
@@ -32,13 +32,7 @@ curl -k https://<host-ip/acs/api/v1/auth/jwks
 ```
 
 ## Constructing the public key from the JWKS data
-The two parameters that fully define an RSA public key are the modulus (`n`) and the exponent (`e`). Both are integers. In the previous example, the exponent parameter is encoded in the values of the `e`, and the modulus is encoded with the value of `n`.
-
-The integers are "Base64urlUInt"-encoded. This encoding is specified by [RFC 7518](https://tools.ietf.org/html/rfc7518#section-6.3):
-
-<blockquote>The representation of a positive or zero integer value as the base64url encoding of the value's unsigned big-endian representation as an octet sequence.  The octet sequence **must** utilize the minimum number of octets needed to represent the value.  Zero is represented as BASE64URL(single zero-valued octet), which is "AA".</blockquote>
-
-For example, the value `AQAB` represents 65537.
+The two parameters that fully define an RSA public key are the modulus (`n`) and the exponent (`e`). Both are integers encoded using Base64 as specified in [RFC 7518](https://tools.ietf.org/html/rfc7518#section-6.3)
 
 Use the tool of your choice to generate the public key representation that you will need to validate the authentication token. Here is a Python example based on the cryptography module (which uses OpenSSL as its back-end). This example generates a public key object from a given exponent and modulus directly.
 
@@ -65,7 +59,7 @@ uid = payload['uid']
 The decode method verifies the token signature and expiration time and raises an exception if the token is invalid.
 
 ## Complete token verification example
-This example invalidates an authentication token (an RS256 JWT). Here is the example token
+This example validates an authentication token. Here is the example token
 
 ```json
 eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0Njc5ODU0NjYsInVpZCI6InBldGVyIn0.lsLJx2WsX99HF96CizMOcZpMIgbjGDBHvFZCGeNDsM-xZQzHQJHo_UA8WodQ52o8uBJ2CY983DhJdIH2Gfc_fbZtYGvUx-IvQnHFbUBd8qBN0A_4BQHeNINFUKdVQuJsbsW-uVj-w0q3RAFwO5DPPc2ppwIjkeQbgGP1ZN-2-uV6Jow04cdkq4jcODsD1y0v4EmIBPLQil0HU2B95IHtlBNN7haTUkCksXE-43BHy4ErboySeq6VgkwLpw_Pi8n236kZ2-GobSmhA-BpjbkO3uGLHrYUfJjrJyiPM2_PZQMHY80-m5sMMMQ9m1Ciag2Cw74JKGfJ3qMW3j3z2Hm7GQ

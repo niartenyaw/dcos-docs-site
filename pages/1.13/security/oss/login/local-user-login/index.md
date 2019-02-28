@@ -16,10 +16,10 @@ menuWeight: 20
 
 Using the [DC/OS CLI](/1.13/cli/) one can log in as local DC/OS user by specifying the `dcos-users` login provider.
 
-1. To log in to the DC/OS CLI, enter the [auth login](/1.13/cli/command-reference/dcos-auth/dcos-auth-login/) command:
+1. To log in via the DC/OS CLI, replace `uid` and `password` in the following [auth login](/1.13/cli/command-reference/dcos-auth/dcos-auth-login/) command:
 
 ```bash
-dcos auth login --provider=dcos-users --username=<username> --password=<password>
+dcos auth login --provider=dcos-users --username=<uid> --password=<password>
 ```
 
 2. Display the DC/OS authentication token by executing the following command:
@@ -37,10 +37,10 @@ export TOKEN=$(dcos config show core.dcos_acs_token)
 
 Local users can log in using [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/).
 
-1. To log in local user accounts supply `<username>` and `<password>` in the following command before executing it:
+1. To log in local user accounts supply `<uid>` and `<password>` in the following command before executing it:
 
 ```bash
-curl -k -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<username>", "password": "<password>"}' -H 'Content-Type: application/json'
+curl -X POST http://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<uid>", "password": "<password>"}' -H 'Content-Type: application/json'
 ```
 
 2. A DC/OS Authentication token will be returned in the HTTP response body similar to the one below:

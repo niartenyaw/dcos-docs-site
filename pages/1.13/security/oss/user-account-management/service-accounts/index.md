@@ -30,10 +30,16 @@ openssl genpkey -algorithm RSA -out private-key.pem -pkeyopt rsa_keygen_bits:204
 openssl rsa -pubout -in private-key.pem -out public-key.pem
 ```
 
-3. Then replace `<uid>` with the desired value in the following command and execute it:
+3. Convert the public key file contents to a string with escaped newline characters.
 
 ```bash
-curl -i -X PUT http://<host-ip>/acs/api/v1/users/<uid> -d '{"public_key": "'"$(sed ':a;N;s/\n/\\n/g;ta' public-key.pem)"'"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+export PUBLIC_KEY=$(sed ':a;N;$!ba;s/\n/\\n/g' public-key.pem)
+```
+
+4. Replace `<uid>` with the desired value in the following command and execute it:
+
+```bash
+curl -i -X PUT http://<host-ip>/acs/api/v1/users/<uid> -d '{"public_key": "'"$PUBLIC_KEY"'"}' -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
 # List service accounts
@@ -46,7 +52,7 @@ curl -i -X PUT http://<host-ip>/acs/api/v1/users/<uid> -d '{"public_key": "'"$(s
 To list all configured service accounts using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) execute the following command:
 
 ```bash
-curl -i -X GET http://<host-ip>/acs/api/v1/users\?type\=service -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
+curl -i -X GET "http://<host-ip>/acs/api/v1/users?type=service" -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"
 ```
 
 # Change a service account public key
@@ -69,7 +75,7 @@ curl -i -X PATCH http://<host-ip>/acs/api/v1/users/<uid> -d '{"public_key": "'"$
 **Prerequisite:**
 - [DC/OS Authentication token](/1.13/security/oss/authentication/authentication-token/) exported into the environment as `TOKEN`.
 
-To remove a local user account using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<username>` with the corresponding value and execute the following command:
+To remove a local user account using the DC/OS [Identity and Access Management (IAM) API](/1.13/security/oss/iam-api/) replace `<uid>` with the corresponding value and execute the following command:
 
 ```bash
 curl -i -X DELETE http://<host-ip>/acs/api/v1/users/<uid> -H 'Content-Type: application/json' -H "Authorization: token=$TOKEN"

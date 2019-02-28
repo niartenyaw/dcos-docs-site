@@ -43,13 +43,15 @@ All IAM endpoints require an authentication token and the `dcos:superuser` permi
 
 To get an authentication token, pass the credentials of a local user or service accout in the body of a `POST` request to `/auth/login`.
 
-To log in regular user accounts supply user ID and password in the request.
+To log in local user accounts supply `uid` and `password` in the request.
+
+**NOTE**: Read how to [establish trust in curl commands](https://docs.mesosphere.com/1.13/security/ent/tls-ssl/ca-trust-curl/) with DC/OS.
 
 ```bash
-curl -ki -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<username>", "password": "<password>"}' -H 'Content-Type: application/json'
+curl -i -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<uid>", "password": "<password>"}' -H 'Content-Type: application/json'
 ```
 
-To log in service accounts supply user ID and a service login token in the request. The service login token is a RFC 7519 JWT of type RS256. It must be constructed by combining the service account user ID and an expiry (`exp`) claim in the JWT format. The JWT requirements for a service login token are:
+To log in service accounts supply user ID and a service login token in the request. The service login token is a RFC 7519 JWT of type RS256. It must be constructed by combining the service account (`uid`) and an expiry (`exp`) claim in the JWT format. The JWT requirements for a service login token are:
 
 1. Header
 ```json
@@ -62,12 +64,12 @@ To log in service accounts supply user ID and a service login token in the reque
 2. Payload
 ```json
 {
-    "uid": "<service-account-id>",
-    "exp": "<expiration time>"
+    "uid": "<uid>",
+    "exp": "<expiration>"
 }
 ```
 
-The provided information must then be encrypted using the service account's private key. The final encoding step results in a token in `base64` encoded JWT format which can be passed to the IAM.
+The provided information must then be encrypted using the service account's private key. This can be done manually using [jwt.io](https://jwt.io) or programmatically with your favorite JWT library. The final encoding step should result in a `base64` encoded JWT which can be passed to the IAM.
 
 ```bash
 curl -X POST https://<host-ip>/acs/api/v1/auth/login -d '{"uid": "<service-account-id>", "token": "<service-login-token>"}' -H 'Content-Type: application/json'
