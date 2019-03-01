@@ -9,7 +9,7 @@ excerpt: Using the DC/OS Identity and Access Management API
 
 <!-- The source repository for this topic is https://github.com/dcos/dcos-docs-site -->
 
-The Identity and Access Management API allows you to manage users through a RESTful HTTP interface.
+The Identity and Access Management API allows you to manage users through a RESTful interface.
 
 # Request and response format
 
